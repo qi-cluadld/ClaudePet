@@ -144,7 +144,7 @@ function New-RoundPolyData {
 $script:CenterX = 120.0
 $script:CenterY = 122.0
 # 核心:六边形(尖朝上),圆角较大,像一个软软的坐垫
-$script:BodyData = New-RoundPolyData -R 52 -N 12 -Round 0.55 -Phase ([Math]::PI / 2)
+$script:BodyData = New-RoundPolyData -R 46 -N 12 -Round 0.55 -Phase ([Math]::PI / 2)
 # 星芒(6 片):圆角长条,围着核心转一圈
 $script:ArmLen = 58.0
 $script:ArmThick = 17.0
@@ -367,28 +367,26 @@ function New-MarkBrush {
     $b.Center = New-Object System.Windows.Point(120, 92)
     $b.GradientOrigin = New-Object System.Windows.Point(120, 92)
     $b.RadiusX = 152; $b.RadiusY = 152
-    [void]$b.GradientStops.Add((New-Gs '#FFF0A98A' 0))
+    [void]$b.GradientStops.Add((New-Gs '#FFF3C0A6' 0))
     [void]$b.GradientStops.Add((New-Gs '#FFC96A45' 0.45))
     [void]$b.GradientStops.Add((New-Gs '#FFBD5D3A' 1))
     return $b
 }
 
-# 十二片星芒:围一圈, 每片略扭一点角度, 做 Claude 那种放射星芒的感觉
+# 十二片星芒:用 Claude 标志那种放射花瓣(内尖、外端略圆), 绕中心均匀排开
+# 局部坐标: (0,0) = 宠物中心, 花瓣从半径 44 长到 87, 所以转起来是围绕中心的
+$script:PetalData = 'M 0,-24 C -3,-42 -7,-64 -7,-78 C -7,-88 -4,-94 0,-96 C 4,-94 7,-88 7,-78 C 7,-64 3,-42 0,-24 Z'
 function Initialize-Blossom {
     for ($i = 0; $i -lt 12; $i++) {
-        $ang = 2 * [Math]::PI * $i / 12
-        $r = New-Object System.Windows.Shapes.Rectangle
-        $r.Width = $script:ArmLen
-        $r.Height = $script:ArmThick
-        $r.RadiusX = $script:ArmThick / 2
-        $r.RadiusY = $script:ArmThick / 2
-        $r.Fill = New-MarkBrush
-        $r.RenderTransformOrigin = New-Object System.Windows.Point(0.5, 0.5)
-        $r.RenderTransform = New-Object System.Windows.Media.RotateTransform((90 + $i * 30 + $script:ArmTwist))
-        $r.IsHitTestVisible = $false
-        [System.Windows.Controls.Canvas]::SetLeft($r, $script:CenterX + [Math]::Cos($ang) * $script:ArmDist - $script:ArmLen / 2)
-        [System.Windows.Controls.Canvas]::SetTop($r, $script:CenterY + [Math]::Sin($ang) * $script:ArmDist - $script:ArmThick / 2)
-        [void]$BlossomLayer.Children.Add($r)
+        $p = New-Object System.Windows.Shapes.Path
+        $p.Data = [System.Windows.Media.Geometry]::Parse($script:PetalData)
+        $p.Fill = New-MarkBrush
+        $p.RenderTransformOrigin = New-Object System.Windows.Point(0, 0)
+        $p.RenderTransform = New-Object System.Windows.Media.RotateTransform($i * 30)
+        $p.IsHitTestVisible = $false
+        [System.Windows.Controls.Canvas]::SetLeft($p, $script:CenterX)
+        [System.Windows.Controls.Canvas]::SetTop($p, $script:CenterY)
+        [void]$BlossomLayer.Children.Add($p)
     }
 }
 Initialize-Blossom

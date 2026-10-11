@@ -41,7 +41,7 @@ function New-RoundPolyData {
 $script:CenterX = 120.0
 $script:CenterY = 122.0
 # 核心:六边形(尖朝上),圆角较大,像一个软软的坐垫
-$script:BodyData = New-RoundPolyData -R 52 -N 12 -Round 0.55 -Phase ([Math]::PI / 2)
+$script:BodyData = New-RoundPolyData -R 46 -N 12 -Round 0.55 -Phase ([Math]::PI / 2)
 # 星芒(6 片):圆角长条,围着核心转一圈
 $script:ArmLen = 58.0
 $script:ArmThick = 17.0
