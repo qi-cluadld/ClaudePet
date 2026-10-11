@@ -142,9 +142,11 @@ function New-RoundPolyData {
 }
 
 $script:CenterX = 120.0
+$script:CrestX = 120.0
+$script:CrestY = 72.0
 $script:CenterY = 122.0
 # 核心:六边形(尖朝上),圆角较大,像一个软软的坐垫
-$script:BodyData = New-RoundPolyData -R 46 -N 12 -Round 0.55 -Phase ([Math]::PI / 2)
+$script:BodyData = New-RoundPolyData -R 44 -N 12 -Round 0.55 -Phase ([Math]::PI / 2)
 # 星芒(6 片):圆角长条,围着核心转一圈
 $script:ArmLen = 58.0
 $script:ArmThick = 17.0
@@ -373,9 +375,9 @@ function New-MarkBrush {
     return $b
 }
 
-# 十二片星芒:用 Claude 标志那种放射花瓣(内尖、外端略圆), 绕中心均匀排开
-# 局部坐标: (0,0) = 宠物中心, 花瓣从半径 44 长到 87, 所以转起来是围绕中心的
-$script:PetalData = 'M 0,-24 C -3,-42 -7,-64 -7,-78 C -7,-88 -4,-94 0,-96 C 4,-94 7,-88 7,-78 C 7,-64 3,-42 0,-24 Z'
+# 十二道等宽圆头射线: 和中间的圆盘合起来就是 Claude 星号(整只就是标志轮廓)
+# 局部坐标: (0,0) = 宠物中心; 齿从半径 26 长到 94, 所以转起来是绕中心
+$script:PetalData = 'M -9.5,-26.5 L -9.5,-84.5 A 9.5,9.5 0 0 1 9.5,-84.5 L 9.5,-26.5 A 9.5,9.5 0 0 1 -9.5,-26.5 Z'
 function Initialize-Blossom {
     for ($i = 0; $i -lt 12; $i++) {
         $p = New-Object System.Windows.Shapes.Path
