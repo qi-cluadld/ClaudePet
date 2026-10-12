@@ -1,5 +1,8 @@
 # Claude 桌面小宠物 ☀
 
+> 📦 **免安装下载**：[Releases](https://github.com/qi-cluadld/ClaudePet/releases/latest) 下载 zip，解压后双击 `启动宠物.vbs` 即可（不用 clone、不用装任何运行库）。
+
+
 一只趴在桌面上的 **Claude 陶土橙星芒**：会浮动、会眨眼、会转圈、会思考、会睡着，点它会有反应，还能和你桌面上另外几只 AI 宠物（Gemini ✨ / DeepSeek 🐋 / ChatGPT ✦）**互相打招呼、聊天、送爱心、吵架再和好**。
 
 - **零依赖**：只用 Windows 自带的 WPF + PowerShell，不用装 Python / Node / 任何运行库
@@ -25,12 +28,21 @@
 
 ```powershell
 # 正常启动(指定大小: 0.7 / 1.0 / 1.4)
+
+> 📦 **免安装下载**：[Releases](https://github.com/qi-cluadld/ClaudePet/releases/latest) 下载 zip，解压后双击 `启动宠物.vbs` 即可（不用 clone、不用装任何运行库）。
+
 powershell -NoProfile -ExecutionPolicy Bypass -File ClaudePet.ps1 -Size 1.4
 
 # 渲染 12 张动作预览图(开发用; 加 -PreviewAlpha 输出透明底, 用来做图标)
+
+> 📦 **免安装下载**：[Releases](https://github.com/qi-cluadld/ClaudePet/releases/latest) 下载 zip，解压后双击 `启动宠物.vbs` 即可（不用 clone、不用装任何运行库）。
+
 powershell -NoProfile -ExecutionPolicy Bypass -File ClaudePet.ps1 -Preview preview -PreviewAlpha
 
 # 自检: 连续跑 N 个动作并检查有没有异常
+
+> 📦 **免安装下载**：[Releases](https://github.com/qi-cluadld/ClaudePet/releases/latest) 下载 zip，解压后双击 `启动宠物.vbs` 即可（不用 clone、不用装任何运行库）。
+
 powershell -NoProfile -ExecutionPolicy Bypass -File ClaudePet.ps1 -SelfTest 30
 ```
 调试日志在 `%TEMP%\ClaudePet.log`（设环境变量 `CLAUDEPET_VERBOSE=1` 会更详细）。
@@ -132,11 +144,20 @@ ClaudePet\
 
 ```powershell
 # 1) 组装主程序
+
+> 📦 **免安装下载**：[Releases](https://github.com/qi-cluadld/ClaudePet/releases/latest) 下载 zip，解压后双击 `启动宠物.vbs` 即可（不用 clone、不用装任何运行库）。
+
 powershell -NoProfile -ExecutionPolicy Bypass -File build\build.ps1
 # 2) 重出预览图(透明底那份是给图标用的)
+
+> 📦 **免安装下载**：[Releases](https://github.com/qi-cluadld/ClaudePet/releases/latest) 下载 zip，解压后双击 `启动宠物.vbs` 即可（不用 clone、不用装任何运行库）。
+
 powershell -NoProfile -ExecutionPolicy Bypass -File ClaudePet.ps1 -Preview preview -PreviewAlpha
 powershell -NoProfile -ExecutionPolicy Bypass -File ClaudePet.ps1 -Preview "$env:TEMP\claude_alpha" -PreviewAlpha
 # 3) 重出图标与合集图
+
+> 📦 **免安装下载**：[Releases](https://github.com/qi-cluadld/ClaudePet/releases/latest) 下载 zip，解压后双击 `启动宠物.vbs` 即可（不用 clone、不用装任何运行库）。
+
 powershell -NoProfile -ExecutionPolicy Bypass -File tools\make_assets.ps1 -AlphaDir "$env:TEMP\claude_alpha"
 ```
 
